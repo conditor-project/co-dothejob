@@ -1,0 +1,18 @@
+{
+  "name": "li-dothejob",
+  "version": "1.0.0",
+  "description": "Module métier basique.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://parentin@vsistex.intra.inist.fr:22222/istex/li-doTheJob.git"
+  },
+  "keywords": [
+    "istex"
+  ],
+  "author": "istex",
+  "license": "ISC"
+}
