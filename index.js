@@ -3,7 +3,7 @@
 /*jslint indent: 2 */
 ;(function () {
   "use strict";
-  module.exports = function dothejob(jsonLine, cb) {
+  module.exports = function doTheJob(jsonLine, cb) {
     jsonLine.canvasOK = true;
     if (jsonLine.id1 === '2b6372af-c83c-4379-944c-f1bff3ab25d8') {
       jsonLine.canvasOK = false;
@@ -16,4 +16,3 @@
     }
   };
 }());
-
