@@ -1,9 +1,11 @@
 /* global module */
 /*jslint node: true */
 /*jslint indent: 2 */
-;(function () {
-  "use strict";
-  module.exports = function doTheJob(jsonLine, cb) {
+"use strict";
+
+var business = {};
+
+business.doTheJob = function (jsonLine, cb) {
     jsonLine.canvasOK = true;
     if (jsonLine.id1 === '2b6372af-c83c-4379-944c-f1bff3ab25d8') {
       jsonLine.canvasOK = false;
@@ -14,5 +16,6 @@
     } else {
       return cb();
     }
-  };
-}());
+};
+
+module.exports = business;
