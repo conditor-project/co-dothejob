@@ -18,4 +18,11 @@ business.doTheJob = function (jsonLine, cb) {
     }
 };
 
+business.finalJob = function (docObjects, cb) {
+    var err = [];
+    err.push(docObjects.pop());
+    docObjects[0].ending = 'finalJob';
+    return cb(err);
+};
+
 module.exports = business;
