@@ -1,0 +1,122 @@
+#!/bin/bash
+################################################################################
+#
+# LoadISTEX / li-canvas / installation
+#
+# Installeur du module.
+#
+# @author ISTEX Dev Team <istex@inist.fr>
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# Charger la conf du module
+# ------------------------------------------------------------------------------
+REPCOURANT=$(cd $(dirname ${BASH_SOURCE[0]:-$0}) > /dev/null && pwd)
+source "$REPCOURANT/../module.conf"
+
+# ------------------------------------------------------------------------------
+# Conf locale
+# ------------------------------------------------------------------------------
+ISTEX_SESSION=""
+
+
+# ------------------------------------------------------------------------------
+# Test/gestion de la ligne de commande
+# ------------------------------------------------------------------------------
+echo "Installation du module « $MODULENAME »"
+if [ $1 ]; then
+	ISTEX_SESSION="$1"
+	echo "Préparation de la session « $ISTEX_SESSION »"
+
+	# ------------------------------------------------------------------------------
+	# Création des répertoires
+	# ------------------------------------------------------------------------------
+	echo "Création de l'arborescence « $DIR_SESSIONS/$ISTEX_SESSION »"
+	mkdir -p $DIR_SESSIONS/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_IN/$ISTEX_SESSION »"
+	mkdir -p $DIR_IN/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_OUT/$ISTEX_SESSION »"
+	mkdir -p $DIR_OUT/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_ERR/$ISTEX_SESSION »"
+	mkdir -p $DIR_ERR/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_LOGS/$ISTEX_SESSION »"
+	mkdir -p $DIR_LOGS/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_TMP/$ISTEX_SESSION »"
+	mkdir -p $DIR_TMP/$ISTEX_SESSION
+
+
+	# ------------------------------------------------------------------------------
+	# Création de l'arborescence du « in » type « a/0/f »
+	# ------------------------------------------------------------------------------
+
+	echo "Création de l'arborescence 'A/0/F/' dans « $DIR_IN/$ISTEX_SESSION » et dans « $DIR_OUT/$ISTEX_SESSION »"
+	if [ "$2" == "test"  ]; then
+		mkdir -p "$DIR_IN/$ISTEX_SESSION/a/0/f/"
+		echo -n "."
+	else
+		for lvlone in "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f"
+		do
+			for lvltwo in "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f"
+			do
+				for lvlthree in "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f"
+				do
+					# echo "création du répertoire « $DIR_IN/$ISTEX_SESSION/$lvlone/$lvltwo/$lvlthree »"
+					echo -n "."
+					# Création conditionnelle du répertoire (pour ne pas écraser
+					# le contenu des répertoires existants)
+					if [ ! -d "$DIR_IN/$ISTEX_SESSION/$lvlone/$lvltwo/$lvlthree" ]; then
+						mkdir -p "$DIR_IN/$ISTEX_SESSION/$lvlone/$lvltwo/$lvlthree"
+					fi
+					# C'est important de créer également les répertoires à l'avance dans out car
+					# lorsque inotifywait écoute en mode récursif, il va louper des fichiers si des répertoires
+					# imbriqués sont créés de façon très rapide pendant son écoute.
+					# Si la structure n'est pas créée à l'avance, le maestro louperait donc des fichiers. 
+					if [ ! -d "$DIR_OUT/$ISTEX_SESSION/$lvlone/$lvltwo/$lvlthree" ]; then
+						mkdir -p "$DIR_OUT/$ISTEX_SESSION/$lvlone/$lvltwo/$lvlthree"
+					fi
+				done
+			done
+		done
+	fi
+	echo "terminé."
+
+	# Si c'est la session des Tests (Unitaires), on crée les liens symboliques
+	# qui vont bien...
+
+	# if [ $ISTEX_SESSION == "TEST_1970-01-01-00-00-00" ]; then
+	# 	echo "Session de test : création des liens symboliques depuis le jeu de test"
+	# 	$DIR_SRC/cree-liens-symboliques $ISTEX_SESSION
+	# 	echo "...terminé."
+	# fi
+
+else
+
+	echo "Pas de session précisée -> installation globale"
+
+	# ------------------------------------------------------------------------------
+	# Création des répertoires
+	# ------------------------------------------------------------------------------
+	echo "Création de l'arborescence « $DIR_SESSIONS/$ISTEX_SESSION »"
+	mkdir -p $DIR_SESSIONS/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_IN/$ISTEX_SESSION »"
+	mkdir -p $DIR_IN/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_OUT/$ISTEX_SESSION »"
+	mkdir -p $DIR_OUT/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_ERR/$ISTEX_SESSION »"
+	mkdir -p $DIR_ERR/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_LOGS/$ISTEX_SESSION »"
+	mkdir -p $DIR_LOGS/$ISTEX_SESSION
+	echo "Création de l'arborescence « $DIR_TMP/$ISTEX_SESSION »"
+	mkdir -p $DIR_TMP/$ISTEX_SESSION
+
+	# ------------------------------------------------------------------------------
+	# Modules NodeJS
+	# ------------------------------------------------------------------------------
+	echo "...installation des modules NodeJS"
+	npm install
+fi
+
+
+echo "Fin de l'installation pour la session $ISTEX_SESSION."
+exit 0

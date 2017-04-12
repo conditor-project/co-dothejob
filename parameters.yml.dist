@@ -1,0 +1,52 @@
+---
+parameters:
+  modules:
+
+    npmPath:
+      repository:         git+ssh://vsistex.intra.inist.fr:22222/istex/
+      # Modules
+      li-dothejob:        li-dothejob.git
+      li-hacco:           li-hacco.git
+      li-carto:           li-carto.git#v3.4.0
+      li-xml-wf:          li-xml-wf.git
+      li-xml-val:         li-xml-val.git
+      li-2mods:           li-2mods.git
+      li-ark:             li-ark.git
+      li-2mf:             li-2mf.git
+      li-refbibs:         li-refbibs.git
+      li-qi:              li-qi.git
+      li-2es-doc:         li-2es-doc.git
+      oi-lang-detect:     oi-lang-detect
+      oi-select:          oi-select.git
+      oi-ocr-tesseract:   oi-ocr-tesseract.git
+      oi-doc-pdf2tiff:    oi-doc-pdf2tiff.git
+      li-bulk:            li-bulk.git
+      rd-multicat:        rd-multicat.git
+      rd-teeft:           rd-teeft.git
+      rd-nb:              rd-nb.git
+      rd-keyterm:         rd-keyterm.git
+
+    # Convention: mettre les modules locaux dans le même répertoire
+    localPath:
+      repository:         ../local_modules
+      # Modules
+      li-dothejob:        li-dothejob
+      li-hacco:           li-hacco
+      li-carto:           li-carto
+      li-xml-wf:          li-xml-wf
+      li-xml-val:         li-xml-val
+      li-2mods:           li-2mods
+      li-ark:             li-ark
+      li-2mf:             li-2mf
+      li-refbibs:         li-refbibs
+      li-qi:              li-qi
+      li-2es-doc:         li-2es-doc
+      oi-select:          oi-select
+      oi-lang-detect:     oi-lang-detect
+      oi-ocr-tesseract:   oi-ocr-tesseract
+      oi-doc-pdf2tiff:    oi-doc-pdf2tiff
+      li-bulk:            li-bulk
+      rd-multicat:        rd-multicat
+      rd-teeft:           rd-teeft
+      rd-nb:              rd-nb
+      rd-keyterm:         rd-keyterm

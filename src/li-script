@@ -1,0 +1,49 @@
+#!/bin/bash
+################################################################################
+#
+# LoadISTEX / li-canvas / li-canvas
+#
+# Module CORE -- ne fait rien, mais le fait bien.
+#
+# @author ISTEX Dev Team <istex@inist.fr>
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# Charger la conf du module
+# ------------------------------------------------------------------------------
+export REPCOURANT=$(cd $(dirname ${BASH_SOURCE[0]:-$0}) > /dev/null && pwd)
+source "$REPCOURANT/../module.conf"
+ 
+# ------------------------------------------------------------------------------
+# Ligne de commande
+# ------------------------------------------------------------------------------
+export CHEMINCOMPLET="$1"
+export ISTEX_SESSION="$2"
+ 
+# ------------------------------------------------------------------------------
+# Conf locale
+# ------------------------------------------------------------------------------
+export TIMESTAMP=`date +'%F;%T;%s.%N'`
+
+# On ne traite pas les fichiers .wakeup-parallel
+SEARCHSTRING=".wakeup-parallel-"
+MATCH=`echo $CHEMINCOMPLET | grep -i "$SEARCHSTRING"`
+ 
+if [ $MATCH ]; then
+    echo "Fichier $CHEMINCOMPLET est un fichier .wakeup"
+    echo "Fin du worker."
+    exit 0
+fi
+ 
+# Fichier temporaire...
+export DIR_TMP="$RAMDRIVE/$ISTEX_SESSION/$MODULENAME"
+# Suppression des fichiers du RamDisk (relicats en cas d'arrêt manuel)
+if [ -e "$DIR_TMP/${CHEMINCOMPLET##*/}" ]; then
+    rm $DIR_TMP/${CHEMINCOMPLET##*/}
+fi
+mkdir -p $DIR_TMP
+ 
+# DEBUG=verbose
+node --stack-size=32000 $REPCOURANT/li-module.js --standalone $(basename $CHEMINCOMPLET)
+exit $?
