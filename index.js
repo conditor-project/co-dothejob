@@ -6,12 +6,12 @@
 var business = {};
 
 business.doTheJob = function (jsonLine, cb) {
-    jsonLine.canvasOK = true;
-    if (jsonLine.id1 === '2b6372af-c83c-4379-944c-f1bff3ab25d8') {
-      jsonLine.canvasOK = false;
+    jsonLine.isConditor = true;
+    if (jsonLine.project !== 'conditor') {
+      jsonLine.isConditor = false;
       return cb({
         code: 1,
-        message: 'J\'aime po cet ID là...'
+        message: 'ici, on ne veut QUE du conditor...'
       });
     } else {
       return cb();
