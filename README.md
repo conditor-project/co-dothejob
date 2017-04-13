@@ -3,11 +3,11 @@ li-doTheJob
 
 ## Présentation ##
 
-Le module **li-dothejob** est un module minimal illustrant la partie fonctionnelle d'un `li-module`.
+Le module **co-dothejob** est un module minimal illustrant la partie fonctionnelle d'un `li-module`.
 
 ### Fonctionnement ###
 
-`li-dothejob` effectue ses traitements dans une fonction `doTheJob()` dédiée.
+`co-dothejob` effectue ses traitements dans une fonction `doTheJob()` dédiée.
 
 Dans notre cas minimal, le module effectue les opérations suivantes :
   * récupération en entrée d'un `docObject` (objet JSON avec un champ `idIstex`), ainsi que d'une callback `cb`.
